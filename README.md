@@ -1,8 +1,12 @@
 # AgenticASR
 
-**AgenticASR: Refining Speech Recognition in Real-World Scenarios via an Agentic Approach**.
+<p align="center">
+  <strong>AgenticASR: Refining Speech Recognition in Real-World Scenarios via an Agentic Approach</strong>
+</p>
 
-AgenticASR defines the Agentic Speech Recognition task, provides a data-generation pipeline for training a Refiner, and implements a streaming system that incrementally rewrites ASR hypotheses as context arrives.
+<p align="center">
+  A benchmark, a data simulation pipeline, and a streaming speech recognition system that refines ASR hypotheses as context arrives.
+</p>
 
 <p align="center">
   <img src="assets/teaser6.png" alt="AgenticASR teaser" width="100%">
@@ -12,26 +16,35 @@ AgenticASR defines the Agentic Speech Recognition task, provides a data-generati
   <img src="assets/AgenticASR-method1.png" alt="AgenticASR method overview" width="100%">
 </p>
 
-## Links
+<p align="center">
+  <a href="https://vibexasr.speech.wiki/"><img src="https://img.shields.io/badge/Desktop_App-Windows%20%7C%20macOS-111827?style=flat-square" alt="Desktop App"></a>
+  <a href="https://www.modelscope.cn/datasets/MuyuanJ/AASR-Bench"><img src="https://img.shields.io/badge/Benchmark-AASR--Bench-2563eb?style=flat-square" alt="Benchmark"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-Apache--2.0-16a34a?style=flat-square" alt="License"></a>
+</p>
 
-- Paper: **link to be added**
-- Product and desktop downloads (Windows/macOS): [VibeXASR](https://vibexasr.speech.wiki/)
-- Benchmark: [ModelScope](https://www.modelscope.cn/datasets/MuyuanJ/AASR-Bench) | [Hugging Face](https://huggingface.co/datasets/Andrew0425/AASR-Bench)
-- Refiner checkpoint: **ModelScope link to be added** | **Hugging Face link to be added**
+## Resources
 
-## Repository Structure
+<table>
+  <tr>
+    <td align="center" width="25%"><b>Paper</b><br><sub>Link coming soon</sub></td>
+    <td align="center" width="25%"><a href="https://vibexasr.speech.wiki/"><b>Desktop App</b></a><br><sub>Windows and macOS downloads</sub></td>
+    <td align="center" width="25%"><a href="https://www.modelscope.cn/datasets/MuyuanJ/AASR-Bench"><b>Benchmark</b></a><br><sub>ModelScope</sub> · <a href="https://huggingface.co/datasets/Andrew0425/AASR-Bench"><sub>Hugging Face</sub></a></td>
+    <td align="center" width="25%"><a href="https://www.modelscope.cn/models/MuyuanJ/AgenticASR-Refiner"><b>Refiner Checkpoint</b></a><br><sub>ModelScope</sub> · <a href="https://huggingface.co/Andrew0425/AgenticASR-Refiner/tree/main"><sub>Hugging Face</sub></a></td>
+  </tr>
+</table>
 
-```text
-pipeline/       Generate and filter Refiner training pairs.
-experiments/    Offline Refiner inference and benchmark evaluation.
-system/         Streaming AgenticASR implementation used by the desktop App.
-assets/         Paper overview figures.
-refiner.yaml    LLaMA Factory training configuration.
-requirements.txt
-run_pipeline.py Top-level data pipeline entry point.
-```
+## What Is Included
 
-See the README in each module for its file map and implementation details.
+<table>
+  <tr>
+    <td width="25%"><b>Benchmark</b><br><sub>AASR-Bench evaluates content, formatting, filtering, and self-correction.</sub></td>
+    <td width="25%"><b>Data Pipeline</b><br><sub>Generate Oral/Clean pairs, simulate ASR noise, run QC, and export training data.</sub></td>
+    <td width="25%"><b>Refiner</b><br><sub>Train or run the ASR text correction model with the paper prompt.</sub></td>
+    <td width="25%"><b>Streaming System</b><br><sub>VAD, incremental ASR, bounded chunks, and K=3 refinement for the desktop App.</sub></td>
+  </tr>
+</table>
+
+The packaged Windows/macOS application is available from the [VibeXASR product page](https://vibexasr.speech.wiki/). This repository contains the research code and reproducible core implementation.
 
 ## Installation
 
@@ -43,9 +56,19 @@ python -m pip install -r requirements.txt
 python -m pip install -r system/requirements.txt
 ```
 
-## 1. Run the Data Pipeline
+## Quick Start
 
-Start an OpenAI-compatible vLLM service, or configure an OpenRouter-compatible service, then run:
+<table>
+  <tr>
+    <td width="33%"><b>01 · Generate</b><br><sub>Create Refiner training pairs.</sub></td>
+    <td width="33%"><b>02 · Refine</b><br><sub>Run a trained Refiner on ASR JSONL.</sub></td>
+    <td width="33%"><b>03 · Train</b><br><sub>Fine-tune a Refiner with LLaMA Factory.</sub></td>
+  </tr>
+</table>
+
+### 01 · Generate Training Data
+
+Start an OpenAI-compatible vLLM service, or configure an OpenRouter-compatible service:
 
 ```bash
 export VLLM_MODEL_NAME=/path/to/gemma-4-31b-it
@@ -53,48 +76,78 @@ export VLLM_BASE_URL=http://127.0.0.1:8000/v1
 python run_pipeline.py
 ```
 
-The pipeline generates Oral/Clean pairs, simulates ASR noise, assembles records, performs quality control and deduplication, and writes the final data under `data/final/`.
+The final records are written to `data/final/`. See [pipeline/README.md](pipeline/README.md) for the stage layout.
 
-## 2. Run Refiner Inference
+### 02 · Run Refiner Inference
 
-For batch inference with a trained Transformer checkpoint:
+The batch inference entry point is `experiments/scripts/postprocess_asr.py`:
 
 ```bash
 python experiments/scripts/postprocess_asr.py \
-  path/to/asr_output.jsonl \
-  path/to/refined_output.jsonl \
+  /path/to/asr_output.jsonl \
+  /path/to/refined_output.jsonl \
   --model /path/to/refiner-checkpoint
 ```
 
-The input records must contain `source_record_id` and `output.raw_text`. See `experiments/README.md` for the benchmark judge workflow.
+Each input record must contain `source_record_id` and `output.raw_text`. The checkpoint uses the Refiner system prompt defined in the inference and training code.
 
-## 3. Train the Refiner
+### 03 · Train the Refiner
 
-Export finalized pipeline records to the ShareGPT format:
+First export the finalized pipeline records. Use paths that exist on your machine:
 
 ```bash
 python pipeline/scripts/export_sft.py \
-  --inputs data/final/train.jsonl \
-  --train-output data/final/train_sft.json \
-  --val-output data/final/val_sft.json
+  --inputs /path/to/AgenticASR/data/final/train.jsonl \
+  --train-output /path/to/llamafactory-data/train_sft.json \
+  --val-output /path/to/llamafactory-data/val_sft.json
 ```
 
-Register the generated files in the LLaMA Factory dataset catalog, update the model and output paths in `refiner.yaml`, then run:
+Register those files in the LLaMA Factory dataset directory at `/path/to/llamafactory-data/dataset_info.json`:
 
-```bash
-llamafactory-cli train refiner.yaml
+```json
+{
+  "refiner_train": {"file_name": "train_sft.json"},
+  "refiner_val": {"file_name": "val_sft.json"}
+}
 ```
 
-## Streaming System
+Then edit a copy of `refiner.yaml` and replace every machine-specific path:
 
-`system/` contains the streaming implementation: audio input, VAD, online sherpa-onnx ASR, bounded chunking, and a K=3 sliding-window Refiner. The full local App path uses the MLX Refiner backend on macOS; `--identity-refiner` is only for diagnostics. The packaged Windows/macOS application is available from the [VibeXASR product page](https://vibexasr.speech.wiki/).
+```yaml
+model_name_or_path: /path/to/base-model
+dataset_dir: /path/to/llamafactory-data
+dataset: refiner_train
+eval_dataset: refiner_val
+output_dir: /path/to/refiner-output
+```
+
+Launch training with the edited configuration:
 
 ```bash
-bash system/download_vad.sh models
+llamafactory-cli train /path/to/refiner.yaml
+```
+
+## Streaming AgenticASR
+
+The `system/` implementation is the streaming core of the AgenticASR desktop App. It combines VAD, online sherpa-onnx ASR, stable text chunking, and a K=3 sliding-window Refiner. The current local backend uses MLX-LM on macOS; the full App path requires `--refiner`.
+
+```bash
+bash system/download_vad.sh /path/to/models
 python -m system.live_asr \
-  --wav path/to/example.wav \
-  --asr-dir models/asr \
-  --refiner models/refiner-mlx
+  --wav /path/to/example.wav \
+  --asr-dir /path/to/models/asr \
+  --refiner /path/to/models/refiner-mlx
 ```
 
-See `system/README.md` for model and VAD preparation.
+Use `--identity-refiner` only for ASR/chunking diagnostics. See [system/README.md](system/README.md) for VAD and model preparation.
+
+## Benchmark Evaluation
+
+Download `rubric.json` from [ModelScope](https://www.modelscope.cn/datasets/MuyuanJ/AASR-Bench) or [Hugging Face](https://huggingface.co/datasets/Andrew0425/AASR-Bench), then run the judge in `experiments/scripts/main.py` with `--rubric /path/to/rubric.json`. See [experiments/README.md](experiments/README.md).
+
+## Module Documentation
+
+- [Pipeline](pipeline/README.md)
+- [Experiments and inference](experiments/README.md)
+- [Streaming system](system/README.md)
+- [Assets](assets/README.md)

@@ -1,5 +1,6 @@
 ### model
-model_name_or_path: path/to/MiniCPM5-1B
+model_name_or_path: /path/to/base-model
+dataset_dir: /path/to/llamafactory-data
 trust_remote_code: true
 flash_attn: auto
 
@@ -9,8 +10,8 @@ do_train: true
 finetuning_type: full
 
 ### dataset
-dataset: refiner_train_fine1
-eval_dataset: refiner_val_fine1
+dataset: refiner_train
+eval_dataset: refiner_val
 template: cpm4
 cutoff_len: 1024
 max_samples: 1000000
@@ -21,7 +22,7 @@ packing: true
 train_on_prompt: false
 
 ### output
-output_dir: saves/minicpm5_1b_refiner
+output_dir: /path/to/refiner-output
 logging_steps: 10
 save_strategy: steps
 save_steps: 400
