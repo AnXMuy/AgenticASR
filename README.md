@@ -16,20 +16,14 @@
   <img src="assets/AgenticASR-method1.png" alt="AgenticASR method overview" width="100%">
 </p>
 
-<p align="center">
-  <a href="https://vibexasr.speech.wiki/"><img src="https://img.shields.io/badge/Desktop_App-Windows%20%7C%20macOS-111827?style=flat-square" alt="Desktop App"></a>
-  <a href="https://www.modelscope.cn/datasets/MuyuanJ/AASR-Bench"><img src="https://img.shields.io/badge/Benchmark-AASR--Bench-2563eb?style=flat-square" alt="Benchmark"></a>
-  <a href="LICENSE"><img src="https://img.shields.io/badge/License-Apache--2.0-16a34a?style=flat-square" alt="License"></a>
-</p>
-
 ## Resources
 
 <table>
   <tr>
-    <td align="center" width="25%"><b>Paper</b><br><sub>Link coming soon</sub></td>
-    <td align="center" width="25%"><a href="https://vibexasr.speech.wiki/"><b>Desktop App</b></a><br><sub>Windows and macOS downloads</sub></td>
-    <td align="center" width="25%"><a href="https://www.modelscope.cn/datasets/MuyuanJ/AASR-Bench"><b>Benchmark</b></a><br><sub>ModelScope</sub> · <a href="https://huggingface.co/datasets/Andrew0425/AASR-Bench"><sub>Hugging Face</sub></a></td>
-    <td align="center" width="25%"><a href="https://www.modelscope.cn/models/MuyuanJ/AgenticASR-Refiner"><b>Refiner Checkpoint</b></a><br><sub>ModelScope</sub> · <a href="https://huggingface.co/Andrew0425/AgenticASR-Refiner/tree/main"><sub>Hugging Face</sub></a></td>
+    <td align="center" width="25%"><b>Paper</b><br><sub>Coming soon</sub></td>
+    <td align="center" width="25%"><a href="https://vibexasr.speech.wiki/"><b>Desktop App</b></a><br><sub>Windows and macOS</sub></td>
+    <td align="center" width="25%"><b>Benchmark</b><br><a href="https://www.modelscope.cn/datasets/MuyuanJ/AASR-Bench">ModelScope</a><br><a href="https://huggingface.co/datasets/Andrew0425/AASR-Bench">Hugging Face</a></td>
+    <td align="center" width="25%"><b>Refiner Checkpoint</b><br><a href="https://www.modelscope.cn/models/MuyuanJ/AgenticASR-Refiner">ModelScope</a><br><a href="https://huggingface.co/Andrew0425/AgenticASR-Refiner/tree/main">Hugging Face</a></td>
   </tr>
 </table>
 
@@ -55,6 +49,8 @@ python -m pip install --upgrade pip
 python -m pip install -r requirements.txt
 python -m pip install -r system/requirements.txt
 ```
+
+Refiner training additionally requires [LLaMA Factory](https://github.com/hiyouga/LLaMA-Factory). Install it separately before running `llamafactory-cli train`.
 
 ## Quick Start
 
