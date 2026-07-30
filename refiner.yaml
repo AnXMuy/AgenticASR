@@ -1,0 +1,55 @@
+### model
+model_name_or_path: path/to/MiniCPM5-1B
+trust_remote_code: true
+flash_attn: auto
+
+### method
+stage: sft
+do_train: true
+finetuning_type: full
+
+### dataset
+dataset: refiner_train_fine1
+eval_dataset: refiner_val_fine1
+template: cpm4
+cutoff_len: 1024
+max_samples: 1000000
+overwrite_cache: true
+preprocessing_num_workers: 16
+dataloader_num_workers: 4
+packing: true
+train_on_prompt: false
+
+### output
+output_dir: saves/minicpm5_1b_refiner
+logging_steps: 10
+save_strategy: steps
+save_steps: 400
+save_total_limit: 5
+plot_loss: true
+overwrite_output_dir: true
+save_only_model: false
+report_to: none  # choices: [none, wandb, tensorboard, swanlab, mlflow]
+
+### train
+per_device_train_batch_size: 16
+gradient_accumulation_steps: 2
+learning_rate: 2.0e-5
+num_train_epochs: 5
+lr_scheduler_type: cosine
+warmup_ratio: 0.05
+weight_decay: 0.01
+max_grad_norm: 1.0
+optim: adamw_torch
+bf16: true
+gradient_checkpointing: true
+ddp_timeout: 180000000
+resume_from_checkpoint: null
+
+### eval
+per_device_eval_batch_size: 8
+eval_strategy: steps
+eval_steps: 100
+load_best_model_at_end: true
+metric_for_best_model: eval_loss
+greater_is_better: false

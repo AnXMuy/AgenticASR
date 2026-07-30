@@ -1,0 +1,29 @@
+.DS_Store
+.env
+.ruff_cache/
+__pycache__/
+*.py[cod]
+
+# Generated training data, caches, and experiment outputs
+data/
+pipeline/runtime/
+experiments/asr_results/
+experiments/judge_results/
+experiments/summary/
+
+# Local model weights and audio assets
+models/
+Audio/
+audio/
+*.onnx
+*.safetensors
+*.pth
+*.pt
+*.wav
+*.flac
+
+# Benchmark files are downloaded separately from the benchmark release.
+experiments/benchmark/
+
+# Training output
+saves/

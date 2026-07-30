@@ -1,0 +1,12 @@
+# Streaming ASR and audio I/O
+numpy>=1.24
+sherpa-onnx>=1.13.2
+sounddevice>=0.5
+soundfile>=0.12
+
+# Optional on Apple Silicon for --refiner
+# mlx>=0.25
+# mlx-lm>=0.31
+
+# Optional for --vad firered
+# fireredvad

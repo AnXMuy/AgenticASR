@@ -1,0 +1,24 @@
+{
+  "system_prompts": {
+    "daily_chat": "Generate realistic Chinese everyday speech.",
+    "vibe_coding": "Generate realistic spoken coding requests with standard technical terms.",
+    "explanation": "Generate realistic Chinese entity clarifications.",
+    "meeting": "Generate realistic Chinese workplace speech.",
+    "customer_service": "Generate realistic Chinese customer-service speech.",
+    "academic": "Generate realistic Chinese academic speech with standard technical terms.",
+    "navigation": "Generate realistic Chinese navigation speech.",
+    "dictation_memo": "Generate realistic Chinese dictated notes.",
+    "voice_search": "Generate realistic Chinese voice-assistant commands.",
+    "english_daily": "Generate realistic everyday English speech.",
+    "english_tech": "Generate realistic spoken English technical instructions.",
+    "english_academic": "Generate realistic English academic speech.",
+    "english_meeting": "Generate realistic English workplace speech.",
+    "english_customer_service": "Generate realistic English customer-service speech.",
+    "english_voice_search": "Generate realistic English voice-assistant commands.",
+    "english_dictation": "Generate realistic English dictated notes."
+  },
+  "user_template": {
+    "zh": "Generate one Chinese Oral utterance from these seeds: {seeds}. Scene: {scenario}. Style: {pattern_hint}. Length: {length_hint}. Required phenomena: {phenomena}. Return strict JSON only.",
+    "en": "Generate one English Oral utterance from these seeds: {seeds}. Scene: {scenario}. Style: {pattern_hint}. Length: {length_hint}. Required phenomena: {phenomena}. Return strict JSON only."
+  }
+}

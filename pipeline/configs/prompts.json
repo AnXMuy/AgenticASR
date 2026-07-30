@@ -1,0 +1,68 @@
+{
+  "seed_generation": {
+    "daily_chat": {
+      "system": "You build diverse seed pools for realistic Chinese everyday conversations.",
+      "user_template": "Return a JSON object with arrays for topics, people, places, products, and numeric expressions. Produce 40 distinct Chinese entries per category. Prefer specific, contemporary, long-tail items suitable for natural speech."
+    },
+    "vibe_coding": {
+      "system": "You build diverse seed pools for spoken requests to AI coding assistants.",
+      "user_template": "Return a JSON object with arrays for languages, frameworks, APIs, commands, parameters, errors, and code symbols. Produce at least 25 distinct entries per category. Mix Chinese context with correctly written English technical terms."
+    },
+    "explanation": {
+      "system": "You build seed pools of uncommon or ambiguous Chinese names, places, organizations, and entities that benefit from spoken clarification.",
+      "user_template": "Return a JSON object with arrays for person_names, place_names, organization_names, brands, and ambiguous_entities. Produce 40 distinct Chinese entries per category. Every item must have a reliable common-word, contrastive, or spelling cue."
+    },
+    "meeting": {
+      "system": "You build diverse seed pools for Chinese workplace meetings.",
+      "user_template": "Return a JSON object with arrays for projects, departments, metrics, dates, amounts, action_items, and risks. Produce at least 30 distinct Chinese entries per category, including realistic values and long-tail business details."
+    },
+    "customer_service": {
+      "system": "You build diverse seed pools for Chinese customer-service calls.",
+      "user_template": "Return a JSON object with arrays for issue_types, products, order_numbers, addresses, amounts, dates, and organizations. Produce at least 30 distinct Chinese entries per category with realistic but synthetic identifiers."
+    },
+    "english_daily": {
+      "system": "You build diverse seed pools for everyday English conversations.",
+      "user_template": "Return a JSON object with arrays for topics, people, places, products, dates, and numeric expressions. Produce 40 distinct English entries per category, emphasizing specific and long-tail items."
+    },
+    "english_tech": {
+      "system": "You build diverse seed pools for spoken English technical and DevOps instructions.",
+      "user_template": "Return a JSON object with arrays for commands, cloud_services, infrastructure, parameters, errors, ports, and file_paths. Produce at least 30 distinct English entries per category with concrete subcommands and values."
+    },
+    "academic": {
+      "system": "You build diverse seed pools for Chinese academic discussions with standard English technical terms.",
+      "user_template": "Return a JSON object with arrays for research_topics, models, datasets, metrics, methods, formulas, and numeric_results. Produce at least 30 distinct entries per category across AI, science, and engineering."
+    },
+    "navigation": {
+      "system": "You build diverse seed pools for Chinese navigation and travel requests.",
+      "user_template": "Return a JSON object with arrays for cities, stations, roads, landmarks, routes, distances, and times. Produce at least 30 distinct Chinese entries per category and include easily confused place names."
+    },
+    "dictation_memo": {
+      "system": "You build diverse seed pools for Chinese dictated notes and memos.",
+      "user_template": "Return a JSON object with arrays for task_types, people, organizations, dates, amounts, products, and list_items. Produce at least 30 distinct Chinese entries per category."
+    },
+    "voice_search": {
+      "system": "You build diverse seed pools for Chinese voice search and assistant commands.",
+      "user_template": "Return a JSON object with arrays for command_types, apps, media, smart_home_devices, local_search, dates, and numeric_values. Produce at least 30 distinct Chinese entries per category."
+    },
+    "english_academic": {
+      "system": "You build diverse seed pools for English academic discussions.",
+      "user_template": "Return a JSON object with arrays for research_topics, models, datasets, metrics, methods, formulas, and numeric_results. Produce at least 30 distinct English entries per category across multiple disciplines."
+    },
+    "english_meeting": {
+      "system": "You build diverse seed pools for English workplace meetings.",
+      "user_template": "Return a JSON object with arrays for projects, departments, metrics, dates, amounts, action_items, and risks. Produce at least 30 distinct English entries per category with realistic values."
+    },
+    "english_customer_service": {
+      "system": "You build diverse seed pools for English customer-service calls.",
+      "user_template": "Return a JSON object with arrays for issue_types, products, order_numbers, addresses, amounts, dates, and organizations. Produce at least 30 distinct English entries per category with synthetic identifiers."
+    },
+    "english_voice_search": {
+      "system": "You build diverse seed pools for English voice search and assistant commands.",
+      "user_template": "Return a JSON object with arrays for command_types, apps, media, smart_home_devices, local_search, dates, and numeric_values. Produce at least 30 distinct English entries per category."
+    },
+    "english_dictation": {
+      "system": "You build diverse seed pools for English dictated notes and memos.",
+      "user_template": "Return a JSON object with arrays for task_types, people, organizations, dates, amounts, products, and list_items. Produce at least 30 distinct English entries per category."
+    }
+  }
+}
