@@ -168,6 +168,10 @@ Download `rubric.json` from [ModelScope](https://www.modelscope.cn/datasets/Muyu
 }
 ```
 
+## Acknowledgements
+
+We thank the authors and contributors of [LLaMA Factory](https://github.com/hiyouga/LLaMAFactory), [MiniCPM](https://github.com/OpenBMB/MiniCPM), [X-ASR](https://github.com/Gilgamesh-J/X-ASR), [Gemma](https://github.com/google-deepmind/gemma), and [Qwen3-ASR](https://github.com/QwenLM/Qwen3-ASR) for their great work and open-source contributions.
+
 ## License
 
 This project is released under the [Apache License 2.0](LICENSE).
