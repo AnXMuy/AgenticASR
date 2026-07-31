@@ -1,12 +1,41 @@
-# AgenticASR
+# AgenticASR: Refining Speech Recognition in Real-World Scenarios via an Agentic Approach
 
 <p align="center">
-  <strong>AgenticASR: Refining Speech Recognition in Real-World Scenarios via an Agentic Approach</strong>
+  <a href="https://arxiv.org/html/2607.28175v1"><img src="https://img.shields.io/badge/Paper-arXiv-b31b1b?style=flat-square&logo=arxiv" alt="Paper"></a>
+  <a href="https://anxmuy.github.io/blog/agenticasr/"><img src="https://img.shields.io/badge/Project-Page-176b87?style=flat-square&logo=githubpages" alt="Project Page"></a>
+  <a href="https://vibexasr.speech.wiki/"><img src="https://img.shields.io/badge/Desktop_App-VibeXASR-8250df?style=flat-square" alt="VibeXASR Desktop App"></a>
+  <a href="https://huggingface.co/datasets/Andrew0425/AASR-Bench"><img src="https://img.shields.io/badge/Benchmark-Hugging_Face-f2c94c?style=flat-square" alt="AASR-Bench on Hugging Face"></a>
+  <a href="https://www.modelscope.cn/datasets/MuyuanJ/AASR-Bench"><img src="https://img.shields.io/badge/Benchmark-ModelScope-624aff?style=flat-square" alt="AASR-Bench on ModelScope"></a>
+  <a href="https://huggingface.co/Andrew0425/AgenticASR-Refiner/tree/main"><img src="https://img.shields.io/badge/Refiner-Hugging_Face-f2c94c?style=flat-square" alt="Refiner on Hugging Face"></a>
+  <a href="https://www.modelscope.cn/models/MuyuanJ/AgenticASR-Refiner"><img src="https://img.shields.io/badge/Refiner-ModelScope-624aff?style=flat-square" alt="Refiner on ModelScope"></a>
 </p>
 
-<p align="center">
-  A benchmark, a data simulation pipeline, and a streaming speech recognition system that refines ASR hypotheses as context arrives.
-</p>
+## News
+
+- **2026-07-30:** Paper, code, AASR-Bench, and Refiner checkpoint are released.
+
+> **Bilingual:** AgenticASR supports both English and Chinese speech-to-clean-text refinement.
+>
+> **ASR-agnostic:** The Refiner is decoupled from the recognizer and can be attached to any ASR frontend that produces text hypotheses.
+
+## Bilingual Demo
+
+<table>
+  <tr>
+    <th width="50%">English Demo</th>
+    <th width="50%">中文演示</th>
+  </tr>
+  <tr>
+    <td width="50%" align="center">
+      <a href="MediaSup/en_demo.mp4"><img src="MediaSup/en_demo_preview.jpg" alt="Play the English AgenticASR demo" width="100%"></a>
+      <br><a href="MediaSup/en_demo.mp4"><b>▶ Play English demo</b></a>
+    </td>
+    <td width="50%" align="center">
+      <a href="MediaSup/CH_demo.mp4"><img src="MediaSup/CH_demo_preview.jpg" alt="播放 AgenticASR 中文演示" width="100%"></a>
+      <br><a href="MediaSup/CH_demo.mp4"><b>▶ 播放中文演示</b></a>
+    </td>
+  </tr>
+</table>
 
 <p align="center">
   <img src="assets/teaser6.png" alt="AgenticASR teaser" width="100%">
@@ -15,17 +44,6 @@
 <p align="center">
   <img src="assets/AgenticASR-method1.png" alt="AgenticASR method overview" width="100%">
 </p>
-
-## Resources
-
-<table>
-  <tr>
-    <td align="center" width="25%"><b>Paper</b><br><sub>Coming soon</sub></td>
-    <td align="center" width="25%"><a href="https://vibexasr.speech.wiki/"><b>Desktop App</b></a><br><sub>Windows and macOS</sub></td>
-    <td align="center" width="25%"><b>Benchmark</b><br><a href="https://www.modelscope.cn/datasets/MuyuanJ/AASR-Bench">ModelScope</a><br><a href="https://huggingface.co/datasets/Andrew0425/AASR-Bench">Hugging Face</a></td>
-    <td align="center" width="25%"><b>Refiner Checkpoint</b><br><a href="https://www.modelscope.cn/models/MuyuanJ/AgenticASR-Refiner">ModelScope</a><br><a href="https://huggingface.co/Andrew0425/AgenticASR-Refiner/tree/main">Hugging Face</a></td>
-  </tr>
-</table>
 
 ## What Is Included
 
