@@ -4,8 +4,10 @@
   <a href="https://arxiv.org/html/2607.28175v1"><img src="https://img.shields.io/badge/Paper-arXiv-b31b1b?style=flat-square&logo=arxiv" alt="Paper"></a>
   <a href="https://anxmuy.github.io/blog/agenticasr/"><img src="https://img.shields.io/badge/Project-Page-176b87?style=flat-square&logo=githubpages" alt="Project Page"></a>
   <a href="https://vibexasr.speech.wiki/"><img src="https://img.shields.io/badge/Desktop_App-VibeXASR-8250df?style=flat-square" alt="VibeXASR Desktop App"></a>
+  <br>
   <a href="https://huggingface.co/datasets/Andrew0425/AASR-Bench"><img src="https://img.shields.io/badge/Benchmark-Hugging_Face-f2c94c?style=flat-square" alt="AASR-Bench on Hugging Face"></a>
   <a href="https://www.modelscope.cn/datasets/MuyuanJ/AASR-Bench"><img src="https://img.shields.io/badge/Benchmark-ModelScope-624aff?style=flat-square" alt="AASR-Bench on ModelScope"></a>
+  <span aria-hidden="true"> | </span>
   <a href="https://huggingface.co/Andrew0425/AgenticASR-Refiner/tree/main"><img src="https://img.shields.io/badge/Refiner-Hugging_Face-f2c94c?style=flat-square" alt="Refiner on Hugging Face"></a>
   <a href="https://www.modelscope.cn/models/MuyuanJ/AgenticASR-Refiner"><img src="https://img.shields.io/badge/Refiner-ModelScope-624aff?style=flat-square" alt="Refiner on ModelScope"></a>
 </p>
