@@ -21,23 +21,33 @@ from configs.settings import (
 from src.generators.oral_text_generator import OralTextGenerator
 from src.generators.seed_generator import SeedGenerator, dedupe_seed_dict
 from src.services.llm_client import AsyncLLMClient
-from src.utils.io_utils import Checkpoint, read_jsonl, setup_logging, write_json
+from src.utils.io_utils import read_jsonl, setup_logging, write_json
 from src.utils.prompt_loader import PromptLoader
 
 
-def _calc_rounds(scene: str, target_num: int, resume: bool) -> tuple[int, int, int]:
+def _existing_oral_count(scene: str, resume: bool) -> int:
     scene_dir = Path(RAW_DIR) / scene
     output_path = scene_dir / "oral.jsonl"
-    ckpt_path = scene_dir / "oral.ckpt.json"
-    ckpt = Checkpoint(ckpt_path)
-    completed = ckpt.get("completed_rounds", 0) if resume else 0
-    generated = len(read_jsonl(output_path)) if output_path.exists() else 0
-    if not resume and output_path.exists():
-        output_path.unlink()
-        generated = 0
-        ckpt.set("completed_rounds", 0)
-    total = max(1, (target_num - generated + ROUND_SIZE - 1) // ROUND_SIZE)
-    return completed, total, generated
+    if not resume or not output_path.exists():
+        return 0
+    return len(read_jsonl(output_path))
+
+
+def _oral_generation_target(
+    scene: str,
+    distribution_target: int,
+    rounds: int | None,
+    resume: bool,
+) -> tuple[int, int, int]:
+    """Return generated count, target record count, and planned incremental rounds."""
+    generated = _existing_oral_count(scene, resume=resume)
+    if rounds is not None:
+        return generated, generated + rounds * ROUND_SIZE, rounds
+
+    generation_target = max(distribution_target, generated)
+    remaining = max(0, generation_target - generated)
+    planned_rounds = (remaining + ROUND_SIZE - 1) // ROUND_SIZE
+    return generated, generation_target, planned_rounds
 
 
 # ============================================================
@@ -112,6 +122,7 @@ async def phase2_oral(
     scenes: list[str],
     targets: dict[str, int],
     base_url: str | None,
+    resume: bool,
     logger: logging.Logger,
 ):
     logger.info("=== Phase 2: Oral Text (%d scenes) ===", len(scenes))
@@ -130,7 +141,7 @@ async def phase2_oral(
         generated = await oral_gen.generate_scene(
             scene=scene,
             total_num=target,
-            resume=True,
+            resume=resume,
         )
         logger.info("[Oral] %s: done, %d/%d items", scene, generated, target)
 
@@ -152,6 +163,8 @@ def main():
     parser.add_argument("--no-resume", action="store_true")
     parser.add_argument("--verbose", action="store_true")
     args = parser.parse_args()
+    if args.rounds is not None and args.rounds < 1:
+        parser.error("--rounds must be at least 1")
 
     setup_logging(logging.DEBUG if args.verbose else logging.INFO)
     logger = logging.getLogger(__name__)
@@ -167,19 +180,36 @@ def main():
     logger.info("Scenes (%d): %s", len(scenes), ", ".join(scenes))
 
     targets: dict[str, int] = {}
-    rounds_map: dict[str, tuple[int, int]] = {}
+    plan_map: dict[str, tuple[int, int, int, int]] = {}
     for scene in scenes:
-        t = int(args.total * SCENE_DISTRIBUTION.get(scene, 0.05))
-        targets[scene] = t
-        completed, total, _ = _calc_rounds(scene, t, resume=not args.no_resume)
-        if args.rounds is not None:
-            total = completed + args.rounds
-        rounds_map[scene] = (completed, total)
+        distribution_target = int(args.total * SCENE_DISTRIBUTION.get(scene, 0.05))
+        generated, generation_target, planned_rounds = _oral_generation_target(
+            scene,
+            distribution_target,
+            args.rounds,
+            resume=not args.no_resume,
+        )
+        targets[scene] = generation_target
+        plan_map[scene] = (
+            distribution_target,
+            generated,
+            generation_target,
+            planned_rounds,
+        )
 
     for scene in scenes:
-        c, t = rounds_map[scene]
+        distribution_target, generated, generation_target, planned_rounds = plan_map[scene]
         seed_rounds = _calc_seed_rounds(scene)
-        logger.info("  %s: target=%d, oral_rounds=%d->%d, seed_rounds=%d", scene, targets[scene], c, t - 1, seed_rounds)
+        logger.info(
+            "  %s: distribution_target=%d, oral_records=%d->%d, "
+            "oral_rounds=%d, seed_rounds=%d",
+            scene,
+            distribution_target,
+            generated,
+            generation_target,
+            planned_rounds,
+            seed_rounds,
+        )
 
     # Skip seed generation when all scene pools already exist.
     seeds_dir = Path(SEEDS_DIR)
@@ -199,7 +229,7 @@ def main():
             await phase1_seeds(scenes, args.base_url, args.max_concurrent, logger)
         else:
             logger.info("=== Phase 1 SKIPPED ===")
-        await phase2_oral(scenes, targets, args.base_url, logger)
+        await phase2_oral(scenes, targets, args.base_url, not args.no_resume, logger)
 
     asyncio.run(run_all())
     logger.info("All done.")
