@@ -14,6 +14,7 @@
 
 ## News
 
+- **2026-08-06:** The [Hugging Face Refiner repository](https://huggingface.co/Andrew0425/AgenticASR-Refiner/tree/main) now includes the `mlx-int4` and `onnx-int4` Refiner variants. Thanks to [xcc-zach](https://github.com/xcc-zach).
 - **2026-07-30:** Paper, code, AASR-Bench, and Refiner checkpoint are released.
 
 ## Features
