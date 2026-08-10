@@ -1,3 +1,5 @@
+
+
 # AgenticASR: Refining Speech Recognition in Real-World Scenarios via an Agentic Approach
 
 <p align="center">
@@ -19,7 +21,7 @@
 
 ## Features
 
-**AgenticSR** turns speech into clean written text while preserving the speaker's final intent. It removes disfluencies, resolves self-corrections, normalizes written form, and can revise previously emitted text when later speech adds new evidence.
+**AgenticASR** turns speech into clean written text while preserving the speaker's final intent. It removes disfluencies, resolves self-corrections, normalizes written form, and can revise previously emitted text when later speech adds new evidence.
 
 - **Bilingual:** AgenticASR supports both English and Chinese speech-to-clean-text refinement.
 - **ASR-agnostic:** The Refiner is decoupled from the recognizer and can be attached to any ASR frontend that produces text hypotheses.
